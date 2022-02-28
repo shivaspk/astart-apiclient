@@ -3,6 +3,20 @@
         <title>API Client</title>
         <script type="text/javascript">
 
+            function invokeTodo() {
+                alert('clicked');
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //process response
+                        console.log(xhttp.response);
+                    }
+                };
+                xhttp.open("GET", "http://localhost:5000/api/TodoItems", true);
+                xhttp.send();
+            }
+
+
             function callrestAPI()
             {
                 alert('clicked');
@@ -43,6 +57,36 @@
                 // send rquest with JSON payload
                 xhttp.send(JSON.stringify(json));
             }
+
+            function addTodo() {
+                alert('clicked');
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //process response
+                        console.log(xhttp.response);
+                    }
+                };
+
+                // create a JSON object
+                const json = {
+                    "id": 1,
+                    "name": "Neo TODO",
+                    "isComplete": false
+                };
+
+                // open request
+                xhttp.open('POST', 'http://localhost:5000/api/TodoItems');
+
+                // set `Content-Type` header
+                xhttp.setRequestHeader('Content-Type', 'application/json');
+
+                // send rquest with JSON payload
+                xhttp.send(JSON.stringify(json));
+            }
+
+
         </script>
     </head>
     <body>
@@ -51,5 +95,8 @@
         <h2> This is a new Change</h2>
         <button onclick="callPOSTAPI()">Invoke POST from Local</button>
         <button onclick="callrestAPI()">Invoke GET from GITHUB</button>
+
+        <button onclick="invokeTodo()">Invoke Todo</button>
+        <button onclick="addTodo()">Add Todo</button>
     </body>
 </html>
